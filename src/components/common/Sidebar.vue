@@ -67,6 +67,11 @@ export default {
                     title: '基础表格'
                 },
                 {
+                    icon: 'el-icon-lx-people',
+                    index: 'user',
+                    title: '用户管理'
+                },
+                {
                     icon: 'el-icon-lx-copy',
                     index: 'tabs',
                     title: 'tab选项卡'

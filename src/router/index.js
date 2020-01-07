@@ -96,7 +96,11 @@ export default new Router({
                     path: '/403',
                     component: () => import(/* webpackChunkName: "403" */ '../components/page/403.vue'),
                     meta: { title: '403' }
-                }
+                }, {
+                    path: '/user',
+                    component: () => import(/* webpackChunkName: "403" */ '@/view/system/user/Index.vue'),
+                    meta: { title: '用户管理' }
+                },
             ]
         },
         {

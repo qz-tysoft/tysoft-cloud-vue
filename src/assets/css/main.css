@@ -30,14 +30,14 @@ a {
     padding-bottom: 30px;
     -webkit-transition: left .3s ease-in-out;
     transition: left .3s ease-in-out;
-    background: #f0f0f0;
+    background: white;
 }
 
 .content {
     width: auto;
     height: 100%;
     padding: 10px;
-    overflow-y: scroll;
+    overflow-y: hidden;
     box-sizing: border-box;
 }
 
@@ -46,10 +46,10 @@ a {
 }
 
 .container {
-    padding: 30px;
+    padding: 15px;
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    /*border: 1px solid #ddd;*/
+    /*border-radius: 5px;*/
 }
 
 .crumbs {
