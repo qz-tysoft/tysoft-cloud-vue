@@ -2,7 +2,7 @@
     <div class="container">
         <ehead @acceptSearch="acceptSearch"></ehead>
         <div class="content-left">
-            <el-tree :data="data"  default-expand-all @node-click="handleNodeClick" :filter-node-method="filterNode" ></el-tree>
+            <el-tree :data="data"  default-expand-all @node-click="handleNodeClick" :filter-node-method="filterNode" ref="tree"></el-tree>
         </div>
         <div class="content-right">
 
@@ -57,8 +57,11 @@
             //接收头部参数
             acceptSearch(val){
              this.searchObj=val
-             console.log("我是父组件-->")
-             console.log( this.searchObj)
+             if(this.searchObj.deptName!=""){
+                 this.$refs.tree.filter(this.searchObj.deptName);
+             }else{
+                 this.$refs.tree.filter("");
+             }
             },
         }
     };
