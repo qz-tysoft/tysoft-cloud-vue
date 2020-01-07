@@ -262,7 +262,7 @@ export default {
     },
     mounted() {
         sayHello2().then(resp=>{
-               console.log(resp)
+
          })
     }
 };
