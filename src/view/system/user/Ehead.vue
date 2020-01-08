@@ -14,13 +14,13 @@
                           style="width: 90%;"/>
             </el-col>
             <el-col :span="2">
-                <el-button type="primary" icon="el-icon-search">搜索</el-button>
+                <el-button type="primary" icon="el-icon-search" @click="doSearch">搜索</el-button>
             </el-col>
             <el-col :span="2">
-                <el-button type="success" icon="el-icon-plus">新增</el-button>
+                <el-button type="success" icon="el-icon-plus" @click="addUser">新增</el-button>
             </el-col>
             <el-col :span="2">
-                <el-button icon="el-icon-refresh-right">重置</el-button>
+                <el-button icon="el-icon-refresh-right" @click="refreshSearch">重置</el-button>
             </el-col>
         </el-row>
     </div>
@@ -30,7 +30,7 @@
     export default {
         name: 'Ehead',
         data() {
-            const searchObj={deptName:'',userName:'',account:''}
+            const searchObj={deptName:'',userName:'',account:'', query:false ,add:false }
             const deptName=''
             const userName=''
             const account=''
@@ -55,6 +55,30 @@
                 this.$emit('acceptSearch', this.searchObj)
             }
         },
+        methods:{
+            //查询
+            doSearch(){
+                //做相关查询
+                this.searchObj.query=true
+                this.$emit('acceptSearch', this.searchObj)
+                this.searchObj.query=false
+            },
+            //新增用户
+            addUser(){
+                //相关新增操作
+                this.searchObj.add=true
+                this.$emit('acceptSearch', this.searchObj)
+                this.searchObj.add=false
+            },
+            //重置查询条件
+            refreshSearch(){
+                this.deptName=""
+                this.userName=""
+                this.account=""
+                this.searchObj={deptName:'',userName:'',account:''}
+                this.$emit('acceptSearch', this.searchObj)
+            }
+        }
     };
 </script>
 
