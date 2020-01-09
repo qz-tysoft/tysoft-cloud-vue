@@ -28,23 +28,30 @@
                 </el-table-column>
             </el-table>
         </div>
-        <!--  界面操作相关弹窗  -->
-        <e-dialog :visible="visible" :title="dialogTitle" :opt="dialogOpt" @dialogOpt=""></e-dialog>
+        <!--  界面弹窗  -->
+        <el-dialog :title="dialogTitle" :visible.sync="visible" width="30%">
+            <EForm :is-submit="isSubmit" :user-obj="user" @subResult="subResult"></EForm>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogButOpt('cancel')">取消</el-button>
+                <el-button type="primary" @click="dialogButOpt('sure')">确定</el-button>
+            </span>
+        </el-dialog>
     </div>
 
 </template>
 
 <script>
     import EHead from './Ehead';
-    import EDialog from './Edialog';
+    import EForm from './Eform';
     export default {
         name: 'Index',
-        components: { EHead, EDialog },
+        components: { EHead, EForm  },
         data() {
             const searchObj={}
+            const user={name:'张三',loginName:'zhangs',phone:'13505921345'}
             return {
-                deptName: '',userName:'',account:'',deptFilterName:'',searchObj,
-                dialogTitle:'查看',dialogOpt:'look',
+                deptName: '',userName:'',account:'',deptFilterName:'',searchObj,user,
+                dialogTitle:'查看',dialogOpt:'look',isSubmit:false,
                 data: [{
                     label: '公司',
                     id:1,
@@ -90,14 +97,24 @@
              }
              //是否新增
              if(this.searchObj.add){
-                this.visible=true
-                this.dialogTitle="新增人员"
-                this.dialogOpt="add"
+                 this.dialogTitle="新增人员"
+                 this.dialogOpt="add"
+                 this.user={}
+                 this.visible=true
              }
             },
-            //弹出框相关操作
-            dialogOpt(val){
-
+            //弹出框按钮相关操作
+            dialogButOpt(val){
+                if(val==='cancel'){
+                    this.visible=false
+                }else if(val==='sure'){
+                    this.isSubmit=true
+                }
+            },
+            //表单验证结果处理
+            subResult(val){
+                this.isSubmit=false
+                this.visible=!val
             }
         }
     };

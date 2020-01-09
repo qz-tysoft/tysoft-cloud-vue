@@ -13,13 +13,9 @@
                 <el-input v-model="account" clearable placeholder="输入用户账号" prefix-icon="el-icon-search"
                           style="width: 90%;"/>
             </el-col>
-            <el-col :span="2">
+            <el-col :span="11">
                 <el-button type="primary" icon="el-icon-search" @click="doSearch">搜索</el-button>
-            </el-col>
-            <el-col :span="2">
                 <el-button type="success" icon="el-icon-plus" @click="addUser">新增</el-button>
-            </el-col>
-            <el-col :span="2">
                 <el-button icon="el-icon-refresh-right" @click="refreshSearch">重置</el-button>
             </el-col>
         </el-row>
