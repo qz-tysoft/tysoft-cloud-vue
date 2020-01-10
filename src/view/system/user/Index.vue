@@ -114,7 +114,7 @@
             //表单验证结果处理
             subResult(val){
                 this.isSubmit=false
-                this.visible=!val
+                //this.visible=!val
             }
         }
     };

@@ -2,15 +2,15 @@
     <div class="main-content">
      <el-form ref="form" :model="user" :rules="rules" size="small" label-width="5vw">
          <el-form-item label="姓名" prop="name">
-            <el-input v-model="userObj.name" class="input-class"/>
+            <el-input v-model="user.name" class="input-class"/>
         </el-form-item>
 
          <el-form-item label="账号" prop="loginName">
-            <el-input v-model="userObj.loginName" class="input-class"/>
+            <el-input v-model="user.loginName" class="input-class"/>
         </el-form-item>
 
          <el-form-item label="电话" prop="phone">
-            <el-input v-model.number="userObj.phone" class="input-class" />
+            <el-input v-model.number="user.phone" class="input-class" />
         </el-form-item>
 
          <!--部门-树形菜单-选择器-->
@@ -34,7 +34,8 @@
         name: 'Eform',
         components:{ treeSelect },
         data(){
-            const user={name:'张三',loginName:'zhangs',phone:'13505921345'}
+           // const user={name:'张三',loginName:'zhangs',phone:'13505921345'}
+            const user=this.userObj
             //验证手机号码
             const validPhone = (rule, value, callback) => {
                 if (!value) {
@@ -115,6 +116,11 @@
                 default:false
             }
         },
+        mounted: function() {
+          //初始化界面表单数据
+            alert(12)
+          //  this.resetForm()
+        },
         methods:{
             //正则
             isValidPhone(str) {
@@ -129,7 +135,7 @@
             resetForm(){
                if(this.reset){
                    this.isSubmit=false
-                   this.$refs['form'].resetFields()
+                   this.user = { name: '', loginName: '',  phone: '' }
                }
             },
             //提交表单
