@@ -15,7 +15,7 @@
 
          <!--部门-树形菜单-选择器-->
          <el-form-item label="部门" prop="dept">
-             <tree-select v-model="deptId" :options="deptOptions"  placeholder="请选择部门" @select="deptSelect" ></tree-select>
+             <tree-select v-model="deptId" :options="deptOptions" :disable-branch-nodes="true" placeholder="请选择部门" @select="deptSelect" ></tree-select>
          </el-form-item>
 
         <!--角色选择-->
@@ -114,11 +114,20 @@
             isSubmit :{
                 type: Boolean,
                 default:false
+            },
+            addUserFlag:{
+               type:Number,
+               require:true
+            }
+        },
+        watch:{
+            //每次新增的shi
+            addUserFlag(val){
+                alert(val)
             }
         },
         mounted: function() {
           //初始化界面表单数据
-            alert(12)
           //  this.resetForm()
         },
         methods:{
