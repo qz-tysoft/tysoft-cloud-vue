@@ -7,3 +7,12 @@ export function addUser(data) {
         data
     })
 }
+
+export function isExistAccount(params) {
+    return request({
+        url: 'api/user/isExistAccount',
+        method: 'get',
+        params
+    })
+}
+
