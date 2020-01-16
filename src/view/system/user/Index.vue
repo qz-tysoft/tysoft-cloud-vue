@@ -2,34 +2,47 @@
     <div class="container">
         <e-head @acceptSearch="acceptSearch"></e-head>
         <div class="content-left">
-            <el-tree :data="data" default-expand-all @node-click="handleNodeClick" :filter-node-method="filterNode"
+            <el-tree :data="deptData" default-expand-all @node-click="handleNodeClick" :filter-node-method="filterNode"
                      ref="tree"></el-tree>
         </div>
         <div class="content-right">
-            <el-table>
-                <el-table-column prop="name" label="姓名" align="center"></el-table-column>
+          <el-table v-loading="false" :data="data" size="small" style="width: 100%;">
+                <el-table-column prop="loginName" label="姓名" align="center"></el-table-column>
                 <el-table-column prop="account" label="账号" align="center"></el-table-column>
                 <el-table-column prop="phone" label="电话" align="center"></el-table-column>
-                <el-table-column prop="creatTime" label="创建日期" align="center"></el-table-column>
+                <el-table-column label="创建日期" align="center">
+                  <template slot-scope="scope">
+                    <div></div>
+                  </template>
+
+                </el-table-column>
                 <el-table-column prop="available" label="是否启用" align="center"></el-table-column>
                 <el-table-column label="操作" width="180" align="center">
-                    <template slot-scope="scope">
-                        <el-button
-                                type="text"
-                                icon="el-icon-edit"
-                                @click="handleEdit(scope.$index, scope.row)"
-                        >编辑
-                        </el-button>
-                        <el-button
-                                type="text"
-                                icon="el-icon-delete"
-                                class="red"
-                                @click="handleDelete(scope.$index, scope.row)"
-                        >删除
-                        </el-button>
-                    </template>
+<!--                    <template slot-scope="scope">-->
+<!--                        <el-button-->
+<!--                                type="text"-->
+<!--                                icon="el-icon-edit"-->
+<!--                                @click="handleEdit(scope.$index, scope.row)"-->
+<!--                        >编辑-->
+<!--                        </el-button>-->
+<!--                        <el-button-->
+<!--                                type="text"-->
+<!--                                icon="el-icon-delete"-->
+<!--                                class="red"-->
+<!--                                @click="handleDelete(scope.$index, scope.row)"-->
+<!--                        >删除-->
+<!--                        </el-button>-->
+<!--                    </template>-->
                 </el-table-column>
             </el-table>
+            <!--分页组件-->
+            <el-pagination
+            :total="total"
+            :current-page="page + 1"
+            style="margin-top: 1vh;margin-left: 0.8vw"
+            layout="total, prev, pager, next, sizes"
+            @size-change="sizeChange"
+            @current-change="pageChange"/>
         </div>
         <!--  界面弹窗  -->
         <el-dialog :title="dialogTitle" :visible.sync="visible" :close-on-click-modal="false" width="30%" @close="resetForm">
@@ -74,10 +87,13 @@
     import treeSelect from '@riophae/vue-treeselect';
     import '@riophae/vue-treeselect/dist/vue-treeselect.css';
     import { addUser, isExistAccount } from '@/api/system/user';
+    import initData from '@/mixins/initData'
+    // import { parseTime } from '@/utils/time';
 
     export default {
         name: 'Index',
         components: { EHead, treeSelect, EForm },
+        mixins: [ initData ],
         data() {
             const searchObj = {};
             const user = { name: '', loginName: '', phone: '' };
@@ -166,7 +182,7 @@
                         }]
                     }
                 ],
-                data: [{
+                deptData: [{
                     label: '公司',
                     id: 1,
                     children: [
@@ -184,9 +200,24 @@
                 visible: false
             };
         },
+        //初始化数据
         created() {
+            //此处的得到的渲染数据需要对DOM进行操作
+            this.$nextTick(() => {
+                this.init()
+            })
         },
         methods: {
+            //时间工具类
+            //parseTime,
+            //初始数据
+            pageParamsInit(){
+                this.url = 'api/user/queryUserByPage'
+                const sort = 'creatTime,desc'
+                this.params = { page: this.page, size: this.size, sort: sort}
+                //this.query = this.searchObj
+                return true
+            },
             //树形点击方法
             handleNodeClick(data) {
 
@@ -207,7 +238,7 @@
                 }
                 //是否查询
                 if (this.searchObj.query) {
-
+                   this.init()
                 }
                 //是否新增
                 if (this.searchObj.add) {

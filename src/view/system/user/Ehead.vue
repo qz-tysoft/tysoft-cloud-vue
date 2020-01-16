@@ -6,7 +6,7 @@
                           style="width: 90%;"/>
             </el-col>
             <el-col :span="4">
-                <el-input v-model="userName" clearable placeholder="输入用户名称" prefix-icon="el-icon-search"
+                <el-input v-model="loginName" clearable placeholder="输入用户名称" prefix-icon="el-icon-search"
                           style="width: 90%;"/>
             </el-col>
             <el-col :span="4">
@@ -26,12 +26,12 @@
     export default {
         name: 'Ehead',
         data() {
-            const searchObj={deptName:'',userName:'',account:'', query:false ,add:false }
+            const searchObj={deptName:'',loginName:'',account:'', query:false ,add:false }
             const deptName=''
-            const userName=''
+            const loginName=''
             const account=''
             return{
-                searchObj,deptName,userName,account
+                searchObj,deptName,loginName,account
             }
         },
         watch: {
@@ -40,9 +40,9 @@
                 this.searchObj.deptName=val
                 this.$emit('acceptSearch', this.searchObj)
             },
-            userName(val) {
-                this.userName = val
-                this.searchObj.userName=val
+            loginName(val) {
+                this.loginName = val
+                this.searchObj.loginName=val
                 this.$emit('acceptSearch', this.searchObj)
             },
             account(val) {
@@ -69,9 +69,9 @@
             //重置查询条件
             refreshSearch(){
                 this.deptName=""
-                this.userName=""
+                this.loginName=""
                 this.account=""
-                this.searchObj={deptName:'',userName:'',account:''}
+                this.searchObj={deptName:'',loginName:'',account:''}
                 this.$emit('acceptSearch', this.searchObj)
             }
         }
