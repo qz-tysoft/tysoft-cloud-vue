@@ -6,17 +6,23 @@
                      ref="tree"></el-tree>
         </div>
         <div class="content-right">
-          <el-table v-loading="false" :data="data" size="small" style="width: 100%;">
+          <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
                 <el-table-column prop="loginName" label="姓名" align="center"></el-table-column>
                 <el-table-column prop="account" label="账号" align="center"></el-table-column>
                 <el-table-column prop="phone" label="电话" align="center"></el-table-column>
                 <el-table-column label="创建日期" align="center">
                   <template slot-scope="scope">
-                    <div></div>
+                    <div>{{ parseTime(scope.row.creatTime) }}</div>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="available" label="是否启用" align="center">
+                  <template slot-scope="scope" class="center-vertical">
+                    <div v-if="scope.row.available" class="available-div" @click="changeUserState($event,scope.row)">启用</div>
+                    <div v-if="!scope.row.available" class="available-div" @click="changeUserState($event,scope.row)" style="background-color: red">禁用</div>
                   </template>
 
+
                 </el-table-column>
-                <el-table-column prop="available" label="是否启用" align="center"></el-table-column>
                 <el-table-column label="操作" width="180" align="center">
 <!--                    <template slot-scope="scope">-->
 <!--                        <el-button-->
@@ -86,9 +92,9 @@
     import EForm from './Eform';
     import treeSelect from '@riophae/vue-treeselect';
     import '@riophae/vue-treeselect/dist/vue-treeselect.css';
-    import { addUser, isExistAccount } from '@/api/system/user';
-    import initData from '@/mixins/initData'
-    // import { parseTime } from '@/utils/time';
+    import { addUser, isExistAccount,changeUserState } from '@/api/system/user';
+    import initData from '@/mixins/initData';
+    import { parseTime } from '@/utils/time';
 
     export default {
         name: 'Index',
@@ -209,7 +215,7 @@
         },
         methods: {
             //时间工具类
-            //parseTime,
+            parseTime,
             //初始数据
             pageParamsInit(){
                 this.url = 'api/user/queryUserByPage'
@@ -308,7 +314,28 @@
                             callback();
                         }
                     });
+            },
+            //改变用户状态
+            changeUserState(node,row){
+              const text=node.toElement.innerHTML
+              const params={available:false,id:row.id,text:'禁用',background:'#13ce66'}
+              if(text === '禁用'){
+                  params.text='启用'
+                  params.background='#13ce66'
+                  params.available=true
+              }else if(text === '启用'){
+                  params.text='禁用'
+                  params.background='#ff0000'
+                  params.available=false
+              }
+                changeUserState(params).then(res=>{
+                   //成功回调
+                    node.toElement.style.background= params.background
+                    node.toElement.innerHTML= params.text
+                })
+
             }
+
         }
     };
 </script>
@@ -328,6 +355,24 @@
 
     .input-class {
         width: 70%;
+    }
+
+    .available-div{
+      /*宽度30%,剩下70%,左边偏35%刚好居中*/
+      width: 36%;
+      height: 3vh;
+      cursor: pointer;
+      background-color: #13ce66;
+      border-radius: 0.5vh;
+      margin-left: 32%;
+      color: white;
+    }
+
+    .center-vertical{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: justify;
     }
 
 </style>

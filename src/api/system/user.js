@@ -16,3 +16,10 @@ export function isExistAccount(params) {
     })
 }
 
+export function changeUserState(params) {
+  return request({
+    url: 'api/user/changeUserState',
+    method: 'get',
+    params
+  })
+}
