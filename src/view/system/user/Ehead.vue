@@ -1,6 +1,6 @@
 <template>
     <div class="main-content">
-        <el-row class="content">
+        <el-row class="searchContent">
             <el-col :span="5">
                 <el-input v-model="deptName" clearable placeholder="输入部门名称" prefix-icon="el-icon-search"
                           style="width: 90%;"/>
@@ -84,7 +84,7 @@
         width: 100%;
     }
 
-    .content {
+    .searchContent {
         height: 100%;
         width: 100%;
     }

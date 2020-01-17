@@ -23,3 +23,12 @@ export function changeUserState(params) {
     params
   })
 }
+
+
+export function del(params) {
+  return request({
+    url: 'api/user/del',
+    method: 'get',
+    params
+  })
+}
