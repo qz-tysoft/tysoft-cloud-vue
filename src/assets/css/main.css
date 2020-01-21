@@ -52,6 +52,7 @@ a {
     /*border-radius: 5px;*/
 }
 
+
 .crumbs {
     margin: 10px 0;
 }
@@ -174,4 +175,13 @@ a {
 
 .v-note-wrapper .v-note-panel {
     min-height: 500px;
+}
+
+/*-----已下为全局通用样式------*/
+.table-div{
+  margin-top:2vh;
+}
+
+.el-scrollbar__wrap{
+  overflow-x: hidden;
 }

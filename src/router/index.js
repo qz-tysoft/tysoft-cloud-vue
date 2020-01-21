@@ -101,6 +101,11 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "403" */ '@/view/system/user/Index.vue'),
                     meta: { title: '用户管理' }
                 },
+              {
+                path: '/dept',
+                component: () => import(/* webpackChunkName: "403" */ '@/view/system/dept/Index.vue'),
+                meta: { title: '部门管理' }
+              },
             ]
         },
         {

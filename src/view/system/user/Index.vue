@@ -101,8 +101,8 @@
 </template>
 
 <script>
-    import EHead from './Ehead';
-    import EForm from './Eform';
+    import EHead from './EHead';
+    import EForm from './EForm';
     import treeSelect from '@riophae/vue-treeselect';
     import '@riophae/vue-treeselect/dist/vue-treeselect.css';
     import { addUser, isExistAccount, changeUserState, del } from '@/api/system/user';

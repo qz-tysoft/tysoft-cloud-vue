@@ -28,13 +28,17 @@
                                     v-for="(threeItem,i) in subItem.subs"
                                     :key="i"
                                     :index="threeItem.index"
-                                >{{ threeItem.title }}</el-menu-item>
+                                >
+                                  <i :class="threeItem.icon"></i>
+                                  {{ threeItem.title }}</el-menu-item>
                             </el-submenu>
                             <el-menu-item
                                 v-else
                                 :index="subItem.index"
                                 :key="subItem.index"
-                            >{{ subItem.title }}</el-menu-item>
+                            >
+                              <i :class="subItem.icon"></i>
+                              {{ subItem.title }}</el-menu-item>
                         </template>
                     </el-submenu>
                 </template>
@@ -67,14 +71,27 @@ export default {
                     title: '基础表格'
                 },
                 {
-                    icon: 'el-icon-lx-people',
-                    index: 'user',
-                    title: '用户管理'
-                },
-                {
                     icon: 'el-icon-lx-copy',
                     index: 'tabs',
                     title: 'tab选项卡'
+                },
+                {
+                    icon: 'el-icon-setting',
+                    index: '2',
+                    title: '系统管理',
+                    subs: [
+                        {
+                            icon: 'el-icon-lx-people',
+                            index: 'user',
+                            title: '用户管理'
+                        },
+                        {
+                            icon: 'el-icon-s-goods',
+                            index: 'dept',
+                            title: '部门管理'
+                        },
+
+                    ]
                 },
                 {
                     icon: 'el-icon-lx-calendar',
